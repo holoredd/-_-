@@ -1,20 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="styles.css" />
-   <title>Wheel of Fortune</title>
+    <title>Wheel of Fortune</title>
   </head>
 
   <body>
     <h1>Spin the Wheel</h1>
-    <button>Spin</button>
+    <button id="spinBtn">Spin</button>
+
     <div id="app">
-      <!-- <img class="button" src="/img/button.png" /> -->
-      <img class="marker" src="marker.png">
-      <img class="wheel" src="wheel.png">
-      
+      <img id="marker" class="marker" src="marker.png" alt="Marker">
+      <img id="wheel" class="wheel" src="wheel.png" alt="Wheel">
     </div>
+
+    <div id="resultModal" class="modal" hidden>
+  <div class="modal-card">
+    <div class="modal-media">
+      <img id="resultImage" src="modal.png" alt="Result background">
+      <div id="resultText"></div>
+      <button id="closeModal">Close</button>
+    </div>
+    <a id="resultLink" href="#" role="button">Collect</a> 
+  </div>
+</div>
+
 
     <script src="script.js"></script>
   </body>
