@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 
-/* * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-} */
+
 html {
   overflow: hidden;
 }
@@ -92,3 +88,142 @@ button:hover {
     filter: blur(0px);
   }
 }
+
+
+/* ---------- modal centering & card (REPLACE this section) ---------- */
+
+.modal[hidden] { display: none; }
+
+/* overlay */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(3,6,12,0.6);
+  z-index: 9999;
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* карточка модалки */
+.modal-card {
+  position: relative;               /* привязка для absolute внутри */
+  width: min(480px, 100%);
+  max-width: 100%;
+  max-height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  background: transparent;          /* фон прозрачный, т.к. картинка — сама карточка */
+}
+
+/* обёртка для картинки — позиционированный контейнер */
+.modal .modal-media {
+  position: relative;
+  width: 100%;
+  padding: 18px;
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden; /* держим элементы внутри карточки */
+}
+
+/* картинка — не больше карточки и не больше viewport */
+#resultImage {
+  width: 100%;
+  max-width: 100%;
+  max-height: 60vh;   /* предотвращает растягивание по высоте */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 12px;
+  object-fit: cover;  /* cover даёт плотный, "заполненный" вид карточки */
+  position: relative;
+  z-index: 1;
+}
+
+/* Текст "You won ..." — теперь позиционируем относительно modal-media */
+/* Стоит чуть выше кнопки collect (см. bottom значение) */
+#resultText {
+  position: absolute;
+  left: 50%;
+  bottom: 115px;                /* примерно 30px выше кнопки (кнопка bottom: 24px) */
+  transform: translateX(-50%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 28px;
+  text-shadow: 0 4px 14px rgba(0,0,0,0.6);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 5;
+  text-align: center;
+}
+
+/* Кнопка "Close" — привязана к углу карточки, сдвинута немного влево (right увеличен) */
+#closeModal {
+  position: absolute;
+  top: 12px;
+  right: 35px;                /* сдвигает влево относительно предыдущего положения */
+  z-index: 10;
+  background: linear-gradient(180deg, rgb(195, 33, 4) 0%, rgb(92, 2, 2) 100%);
+  color: #fff;
+  font-size: 20px;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transform: none;
+}
+
+/* Collect — теперь внутри modal-media, центрируется и немного уже самого окна */
+#resultLink {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;                          /* отступ от низа карточки */
+  transform: translateX(-50%);
+  width: calc(100% - 80px);             /* немного уже чем окно */
+  max-width: 360px;                     /* верхняя граница */
+  min-width: 160px;
+  padding: 14px 0;                       /* высота и вертикальное центрирование текста */
+  background: linear-gradient(180deg, rgba(33,204,81,1) 0%, rgba(22,110,85,1) 100%);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 20px;
+  border-radius: 28px;
+  cursor: pointer;
+  text-align: center;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 18px rgba(11,84,47,0.35);
+  border: none;
+}
+
+/* Вариант вторичной кнопки (если нужен) */
+.modal-footer .btn.secondary {
+  background: #ddd;
+  color: #111;
+}
+
+/* Если в старой разметке есть .modal-footer — скрываем его, чтобы не дублировалось */
+.modal-footer { display: none; }
+
+/* responsive */
+@media (max-width: 420px) {
+  .modal-card { max-width: 92%; padding-bottom: 6px; }
+  #resultText { font-size: 18px; bottom: 56px; white-space: normal; padding: 0 8px; }
+  #resultLink { font-size: 14px; padding: 10px 0; width: calc(100% - 48px); max-width: none; bottom: 18px; }
+  #closeModal { right: 14px; }
+}
+
+
+
+
