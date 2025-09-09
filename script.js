@@ -17,7 +17,7 @@
     // Calculate a new rotation between 5000 and 10 000
     deg = Math.floor(3000 + Math.random() * 3000); //  -- количество градусов --
     // Set the transition on the wheel
-    wheel.style.transition = 'all 5s ease-out';
+    wheel.style.transition = 'all 6s ease-out';
     // Rotate the wheel
     wheel.style.transform = `rotate(${deg}deg)`;
     // Apply the blur
@@ -62,13 +62,11 @@
     // можно присвоить resultImage.src = '...' здесь)
 
     // Показать модал (если он есть)
- setTimeout(() => {
+setTimeout(() => {
   resultModal.hidden = false;
   resultModal.setAttribute('aria-hidden', 'false');
   if (resultLink && typeof resultLink.focus === 'function') resultLink.focus();
 }, 600); 
-  });
-    // --- конец блока показа результата ---
   });
 
   // (Опционально) минимальная логика скрытия модала при наличии кнопки закрытия с id="closeModal"
