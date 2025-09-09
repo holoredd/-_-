@@ -1,8 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 
-
 html {
-  overflow: hidden;
+  overflow-y: scroll; /* скролл всегда есть, даже если мало контента */
 }
 
 body {
@@ -44,6 +43,7 @@ button:hover {
 #app {
   width: 400px;
   height: 400px;
+  overflow: hidden;
   margin: 0 auto;
   position: relative;
 }
@@ -74,7 +74,7 @@ button:hover {
 }
 
 .blur {
-  animation: blur 5s;
+  animation: blur 1s;
 }
 
 @keyframes blur {
@@ -223,7 +223,6 @@ button:hover {
   #resultLink { font-size: 14px; padding: 10px 0; width: calc(100% - 48px); max-width: none; bottom: 18px; }
   #closeModal { right: 14px; }
 }
-
 
 
 
