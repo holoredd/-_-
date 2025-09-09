@@ -5,11 +5,17 @@
   const startButton = document.querySelector('button');
   let deg = 0;
 
+  // --- Ссылки на элементы модального окна (если они есть в DOM) ---
+  const resultModal = document.getElementById('resultModal');
+  const resultText = document.getElementById('resultText');
+  const resultImage = document.getElementById('resultImage');
+  const resultLink = document.getElementById('resultLink');
+
   startButton.addEventListener('click', () => {
     // Disable button during spin
     startButton.style.pointerEvents = 'none';
     // Calculate a new rotation between 5000 and 10 000
-    deg = Math.floor(3000 + Math.random() * 3000);
+    deg = Math.floor(3000 + Math.random() * 3000); //  -- количество градусов --
     // Set the transition on the wheel
     wheel.style.transition = 'all 5s ease-out';
     // Rotate the wheel
@@ -31,5 +37,50 @@
     const actualDeg = deg % 360;
     // Set the real rotation instantly without animation
     wheel.style.transform = `rotate(${actualDeg}deg)`;
+
+    // --- Минимальный блок: вычислить сектор, взять приз и показать модал ---
+    // Параметры для расчёта сектора
+    const sectorCount = 8;
+    const sectorAngle = 360 / sectorCount; // 45°
+    const sectorOffset = 0; // при необходимости подкорректируйте (в градусах)
+
+    // pointerAngle — угол относительно указателя сверху
+    const pointerAngle = (360 - actualDeg + sectorOffset) % 360;
+
+    // вычисляем индекс сектора (0..7)
+    const index = Math.floor((pointerAngle + sectorAngle / 2) / sectorAngle) % sectorCount;
+
+    // порядок призов должен соответствовать расположению секторов на картинке (начиная с того сектора,
+    // который при rotation=0 находится под маркером, далее по часовой)
+    const prizes = ['$100','$200','$300','$400','$500','$600','$700','$800'];
+    const prize = prizes[index];
+
+    // Заполнить содержимое модала (минимально)
+    if (resultText) resultText.textContent = `You won ${prize}!`;
+    if (resultLink) resultLink.href = '#';
+    // (resultImage оставляем на ваше усмотрение; если хотите менять картинку под сектор,
+    // можно присвоить resultImage.src = '...' здесь)
+
+    // Показать модал (если он есть)
+    if (resultModal) {
+      resultModal.hidden = false;
+      resultModal.setAttribute('aria-hidden', 'false');
+      // попытка поставить фокус на кнопку/ссылку внутри модала
+      if (resultLink && typeof resultLink.focus === 'function') {
+        resultLink.focus();
+      }
+    }
+    // --- конец блока показа результата ---
   });
+
+  // (Опционально) минимальная логика скрытия модала при наличии кнопки закрытия с id="closeModal"
+  const closeBtn = document.getElementById('closeModal');
+  if (closeBtn && resultModal) {
+    closeBtn.addEventListener('click', () => {
+      resultModal.hidden = true;
+      resultModal.setAttribute('aria-hidden', 'true');
+      if (typeof startButton.focus === 'function') startButton.focus();
+    });
+  }
+
 })();
