@@ -62,14 +62,12 @@
     // можно присвоить resultImage.src = '...' здесь)
 
     // Показать модал (если он есть)
-    if (resultModal) {
-      resultModal.hidden = false;
-      resultModal.setAttribute('aria-hidden', 'false');
-      // попытка поставить фокус на кнопку/ссылку внутри модала
-      if (resultLink && typeof resultLink.focus === 'function') {
-        resultLink.focus();
-      }
-    }
+ setTimeout(() => {
+  resultModal.hidden = false;
+  resultModal.setAttribute('aria-hidden', 'false');
+  if (resultLink && typeof resultLink.focus === 'function') resultLink.focus();
+}, 600); 
+  });
     // --- конец блока показа результата ---
   });
 
